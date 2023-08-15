@@ -1,14 +1,11 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { Car } from '../../components/Cars.types';
 
 const carsSlice = createSlice({
   name: 'cars',
   initialState: {
     searchTerm: '',
-    cars: [{
-        name: '',
-        cost: 0,
-        id: '',
-    }],
+    data: [] as Car[],
   },
   reducers: {
     changeSearchTerm(state, action) {
@@ -16,7 +13,7 @@ const carsSlice = createSlice({
     },
     addCar(state, action) {
       // action.payload = {name: ab, cost: 159}
-      state.cars.push({
+      state.data.push({
         name: action.payload.name,
         cost: action.payload.cost,
         id: nanoid(),
@@ -25,8 +22,8 @@ const carsSlice = createSlice({
     removeCar(state, action) {
       // action.payload is the id of the car that we wanna delete
       //   state.cars.splice(action.payload);
-      const updated = state.cars.filter((car) => car.id !== action.payload)
-      state.cars = updated;
+      const updated = state.data.filter((car) => car.id !== action.payload)
+      state.data = updated;
     },
   },
 });

@@ -1,19 +1,5 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
 
-// type Car = {
-//     name: string;
-//     cost: number;
-//     id: string;
-// };
-
-// type CarPayload = {
-//     payload: Car;
-// };
-
-// interface Cars {
-//     cars: Car[];
-// }
-
 const carsSlice = createSlice({
   name: 'cars',
   initialState: {

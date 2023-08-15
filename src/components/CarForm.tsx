@@ -4,10 +4,10 @@ import React from 'react';
 
 function CarForm() {
   const dispatch = useDispatch();
-  const { name, cost } = useSelector((state: any) => {
+  const { name, cost } = useSelector(({ form: { name, cost } }) => {
     return {
-      name: state.form.name,
-      cost: state.form.cost,
+      name: name,
+      cost: cost,
     };
   });
 

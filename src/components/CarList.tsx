@@ -4,20 +4,28 @@ import { removeCar } from '../store';
 
 function CarList() {
   const dispatch = useDispatch();
-  const cars: Car[] = useSelector(({ cars: { data, searchTerm } }) => {
-    return data.filter((car: Car) => {
-      return car.name.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-  });
+  const { cars, name } = useSelector(
+    ({ form: { name }, cars: { data, searchTerm } }) => {
+      const filteredCars = data.filter((car: Car) =>
+        car.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      return {
+        cars: filteredCars,
+        name,
+      };
+    }
+  );
 
   const handleCarDelete = (car: Car): void => {
     dispatch(removeCar(car.id));
   };
 
-  const renderedCars = () => {
-    return cars.map((car: Car) => {
+  const renderedCars = () =>
+    cars.map((car: Car) => {
+      const bold = name && car.name.toLowerCase().includes(name?.toLowerCase());
       return (
-        <div className='panel' key={car.id}>
+        <div className={`panel ${bold && 'bold'}`} key={car.id}>
           <p>
             {car.name} - ${car.cost}
           </p>
@@ -30,7 +38,6 @@ function CarList() {
         </div>
       );
     });
-  };
 
   return <div className='car-list'>{renderedCars()}</div>;
 }
